@@ -10,7 +10,7 @@ export const todoSlice = createSlice({
     addTodo: (state, action) => {
       const todo = {
         id: nanoid(),
-        text: action.payload.text,
+        text: action.payload,
         isEdit: false,
       };
       state.todos.push(todo);
@@ -27,7 +27,9 @@ export const todoSlice = createSlice({
     },
     toggleEdit: (state, action) => {
       state.todos = state.todos.map((todo) => {
-        todo.id === action.payload ? { ...todo, isEdit: true } : todo;
+       return todo.id === action.payload ? { ...todo, isEdit: !todo.isEdit } : todo;
+      
+        
       });
     },
   },
