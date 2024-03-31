@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { removeTodo, toggleEdit, updateTodo } from "../Feaature/todo/TodoSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 function Todos() {
   const todos = useSelector((state) => state.todos);
   const dispatch = useDispatch();
-
+  
+ 
+  
   return (
     <>
       <div>Todos</div>
@@ -17,7 +19,7 @@ function Todos() {
             <input
               type="text"
               className={`border outline-none w-500px bg-transparent rounded-lg ${
-                todo.isEdit !== undefined
+                todo.isEdit 
                   ? todo.isEdit 
                     ? "border-black/10 px-2"
                     : "border-transparent"
@@ -25,19 +27,21 @@ function Todos() {
               }`}
               onChange={(e) => {
                 if (todo.isEdit) {
-                  dispatch(updateTodo(todo.id, e.target.value));
+                  dispatch(updateTodo({id:todo.id, text: e.target.value}));
                 }
+               
+                
               }}
+              
               readOnly={!todo.isEdit}
               value={todo.text}
             ></input>
             <button
               onClick={() => {
                 dispatch(toggleEdit(todo.id))
-                console.log(todo.isEdit);
-              }}
+                }}
             >
-              {!todo.isEdit ? "📁" : "✏️"}
+              {todo.isEdit ? "📁" : "✏️"}
             </button>
             <button
               onClick={() => dispatch(removeTodo(todo.id))}
